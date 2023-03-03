@@ -3,6 +3,7 @@ package com.kenda.myjob.controller;
 import com.kenda.myjob.entity.Cv;
 import com.kenda.myjob.service.CvService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,7 +14,8 @@ public class CvController {
     private CvService service;
 
     @PostMapping("/addCv")
-    public Cv addProduct(@RequestBody Cv cv){
+    @PreAuthorize("hasAutority('ROLE_USER')")
+    public Cv addCv(@RequestBody Cv cv){
         return service.saveCv(cv); // Appel de la méthode saveProduct de ProductService pour sauvegarder le produit
     }
 
@@ -33,11 +35,13 @@ public class CvController {
     }
 
     @PutMapping("/update")
+    @PreAuthorize("hasAutority('USER')")
     public Cv updateCv(@RequestBody Cv cv){
         return service.updateCv(cv); // Appel de la méthode updateProduct de ProductService pour mettre à jour le produit
     }
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasAutority('USER')")
     public String deleteCv(@RequestBody int id){
         return service.deleteById(id); // Appel de la méthode deleteById de ProductService pour supprimer le produit correspondant à l'id donné
     }

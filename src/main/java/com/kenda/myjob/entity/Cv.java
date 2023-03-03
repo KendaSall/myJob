@@ -25,4 +25,5 @@ public class Cv {
     private String specialite;
     private String niveauEtude;
     private String experienceProfessionelle;
+    private String password;
 }
